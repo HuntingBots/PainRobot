@@ -29,14 +29,14 @@ def afk(update: Update, context: CallbackContext):
         reason = args[1]
         if len(reason) > 100:
             reason = reason[:100]
-            notice = "\nYour afk reason was shortened to 100 characters."
+            notice = "\nYour death reason was shortened to 100 characters."
     else:
         reason = ""
 
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
     try:
-        update.effective_message.reply_text("{} is now away!{}".format(
+        update.effective_message.reply_text("{} is now dead!{}".format(
             fname, notice))
     except BadRequest:
         pass
@@ -57,9 +57,17 @@ def no_longer_afk(update: Update, context: CallbackContext):
         firstname = update.effective_user.first_name
         try:
             options = [
-                '{} is here!', '{} is back!', '{} is now in the chat!',
-                '{} why you came here?', '{} is wasting his time in this chat!', '{} welcome back... now pay 100$ or get banned.',
-                'Yamete...Yamete-kudasai {}-sama', 'Oh my! {} got no chills!!', '{} got a girlfriend! thats why he was afk.', '{} welcome to hell again.', '{} is here! start the show!', '{} bruh you should delete your telegram account.', '{} ahem! my love is here!', '{} damn... I saw you were online.. reading the messages.. but u were afk.', '{} yess.. lets start trashing the chat!', 'Spammer just arrived.. be ready everyone.. let me grab my ban-hammer!', '{} please be gentle with me... in the chat..'
+                "{}'s Mom! {} Is wasting his time in the chat again!",
+                "Dead {} Came Back From His Grave!",
+                "We thought that we lost you, {}",
+                "Welcome Back {} now pay $1000 to Get freedom or get banned!",
+                "{} Good job waking up now get ready for your classes!",
+                "Hey,{}! Why weren't you online for such a long time?",
+                "{}, why did you came back?",
+                "Ah shit, here we go again with {}",
+                "Oh no! not you again, {}",
+                "Welcome to hell chat again, {}",
+                "Mission passed unsuccessfully, {}"
             ]
             chosen_option = random.choice(options)
             update.effective_message.reply_text(chosen_option.format(firstname))
@@ -135,12 +143,12 @@ def check_afk(update, context, user_id, fst_name, userc_id):
 
 
 __help__ = """
- • `/afk <reason>`*:* mark yourself as AFK(away from keyboard).
+ • `/dead <reason>`*:* mark yourself as Dead(Dead Online,Not In Offline World).
  • `brb <reason>`*:* same as the afk command - but not a command.
 When marked as AFK, any mentions will be replied to with a message to say you're not available!
 """
 
-AFK_HANDLER = DisableAbleCommandHandler("afk", afk)
+AFK_HANDLER = DisableAbleCommandHandler("dead", afk)
 AFK_REGEX_HANDLER = DisableAbleMessageHandler(
     Filters.regex(r"^(?i)brb(.*)$"), afk, friendly="afk")
 NO_AFK_HANDLER = MessageHandler(Filters.all & Filters.group, no_longer_afk)
