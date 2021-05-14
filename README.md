@@ -5,11 +5,11 @@
 
 A modular Telegram Python bot running on python3 with a sqlalchemy database and an entirely themed persona to make Saitama suitable for Anime and Manga group chats. 
 
-Can be found on telegram as [PainRobot2.0](https://t.me/Painx2Robot).
+Can be found on telegram as [PainRobot](https://t.me/PainAkatsukiRobot).
 
-The Support group can be reached out to at [Akatsuki Organization](https://t.me/PainRobotSupport), where you can ask for help about [PainRobot 2.0](https://t.me/Painx2Robot), discover/request new features, report bugs, and stay in the loop whenever a new update is available. 
+The Support group can be reached out to at [Akatsuki Organization](https://t.me/PainRobotSupport), where you can ask for help about [PainRobot](https://t.me/PainAkatsukiRobot), discover/request new features, report bugs, and stay in the loop whenever a new update is available. 
 
-News channel as at [Pain Robot 2.0 Updates](https://t.me/PainRobotUpdates) 
+News channel as at [Pain Robot Updates](https://t.me/PainRobotUpdates) 
 
 ## How to setup/deploy.
 
