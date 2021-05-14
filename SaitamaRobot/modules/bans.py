@@ -55,8 +55,7 @@ def ban(update: Update, context: CallbackContext) -> str:
                 "Trying to put me against The Deva Path huh?")
             return log_message
         elif user_id in DEV_USERS:
-            message.reply_text("I can't act against my own comrades!
-")
+            message.reply_text("I can't act against my own comrades!")
             return log_message
         elif user_id in DRAGONS:
             message.reply_text(
