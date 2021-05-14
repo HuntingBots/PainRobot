@@ -459,7 +459,7 @@ RBAN_HANDLER = CommandHandler("rban", rban, filters=CustomFilters.sudo_filter)
 RUNBAN_HANDLER = CommandHandler(
     "runban", runban, filters=CustomFilters.sudo_filter)
 RKICK_HANDLER = CommandHandler(
-    "rpunch", rkick, filters=CustomFilters.sudo_filter)
+    "rpush", rkick, filters=CustomFilters.sudo_filter)
 RMUTE_HANDLER = CommandHandler(
     "rmute", rmute, filters=CustomFilters.sudo_filter)
 RUNMUTE_HANDLER = CommandHandler(
