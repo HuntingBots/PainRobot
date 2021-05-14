@@ -252,7 +252,7 @@ def rkick(update: Update, context: CallbackContext):
     if not is_bot_admin(chat, bot.id) or not chat.get_member(
             bot.id).can_restrict_members:
         message.reply_text(
-            "I can't restrict people there! Make sure I'm admin and can punch users."
+            "I can't restrict people there! Make sure I'm admin and can push users."
         )
         return
 
@@ -266,27 +266,27 @@ def rkick(update: Update, context: CallbackContext):
             raise
 
     if is_user_ban_protected(chat, user_id, member):
-        message.reply_text("I really wish I could punch admins...")
+        message.reply_text("I really wish I could push admins...")
         return
 
     if user_id == bot.id:
-        message.reply_text("I'm not gonna punch myself, are you crazy?")
+        message.reply_text("I'm not gonna push myself, are you crazy?")
         return
 
     try:
         chat.unban_member(user_id)
-        message.reply_text("Punched from chat!")
+        message.reply_text("Pushed from chat!")
     except BadRequest as excp:
         if excp.message == "Reply message not found":
             # Do not reply
-            message.reply_text('Punched!', quote=False)
+            message.reply_text('Pushed!', quote=False)
         elif excp.message in RKICK_ERRORS:
             message.reply_text(excp.message)
         else:
             LOGGER.warning(update)
             LOGGER.exception("ERROR punching user %s in chat %s (%s) due to %s",
                              user_id, chat.title, chat.id, excp.message)
-            message.reply_text("Well damn, I can't punch that user.")
+            message.reply_text("Well damn, I can't push that user.")
 
 
 @run_async
