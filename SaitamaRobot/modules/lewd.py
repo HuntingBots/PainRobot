@@ -877,6 +877,7 @@ Commands :
  - /smug: Sends Random Smug GIFs.
  - /baka: Sends Random Baka Shout GIFs.
  - /dva: Sends Random D.VA source Images.
+*WARNING*: Use These Commands Only In Bot's DM Or At [Hentai Nexus™](https://t.me/joinchat/Os3XYTZRQ7w0NzRl) Please Or You Have The Chance To Get Banned In Other Groups.
 """
 
 __mod_name__ = "NSFW"
