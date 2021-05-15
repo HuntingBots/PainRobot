@@ -92,10 +92,10 @@ def reverse(update: Update, context:CallbackContext):
         fetchUrl = response.headers['Location']
 
         if response != 400:
-            xx = bot.send_message(chat_id, "Chaliyeh chutiyapa karte hai!."
-                                  "\nParsing it, please wait.", reply_to_message_id=rtmid)
+            xx = bot.send_message(chat_id, "Searching On Google....."
+                                  "\nTearing it, please wait...", reply_to_message_id=rtmid)
         else:
-            xx = bot.send_message(chat_id, "Google told me to go away.", reply_to_message_id=rtmid)
+            xx = bot.send_message(chat_id, "Google told me to Fak Off.", reply_to_message_id=rtmid)
             return
 
         os.remove(imagename)
@@ -107,14 +107,14 @@ def reverse(update: Update, context:CallbackContext):
             imgspage = match['similar_images']
 
         if guess and imgspage:
-            xx.edit_text(f"[{guess}]({fetchUrl})\nNoobde log waifu ka nam tak nahi pata..", parse_mode='Markdown', disable_web_page_preview=True)
+            xx.edit_text(f"[{guess}]({fetchUrl})\nThese noobs don't even know the name of the waifu", parse_mode='Markdown', disable_web_page_preview=True)
         else:
             xx.edit_text("Couldn't find anything.")
             return
 
         images = scam(imgspage, lim)
         if len(images) == 0:
-            xx.edit_text(f"[{guess}]({fetchUrl})\n[Yeh lo chutiyo karo protecc]({imgspage})"
+            xx.edit_text(f"[{guess}]({fetchUrl})\n[Take this phakerz now protecc]({imgspage})"
                           "\nCouldn't fetch any images.", parse_mode='Markdown', disable_web_page_preview=True)
             return
 
@@ -124,7 +124,7 @@ def reverse(update: Update, context:CallbackContext):
             imglinks.append(lmao)
 
         bot.send_media_group(chat_id=chat_id, media=imglinks, reply_to_message_id=rtmid)
-        xx.edit_text(f"[{guess}]({fetchUrl})\n[Visually similar images]({imgspage})", parse_mode='Markdown', disable_web_page_preview=True)
+        xx.edit_text(f"[{guess}]({fetchUrl})\n[Images that Google exchanged with me]({imgspage})", parse_mode='Markdown', disable_web_page_preview=True)
     except TelegramError as e:
         print(e)
     except Exception as exception:
