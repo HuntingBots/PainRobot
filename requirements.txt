@@ -42,4 +42,4 @@ motor
 pymongo 
 python-arq
 dnspython
-ffmpeg
+
