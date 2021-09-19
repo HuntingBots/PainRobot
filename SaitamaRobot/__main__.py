@@ -26,7 +26,7 @@ from telegram.ext import (
 from telegram.ext.dispatcher import DispatcherHandlerStop, run_async
 from telegram.utils.helpers import escape_markdown
 
-from SaitamaRobot import (
+from AsunaRobot import (
     ALLOW_EXCL,
     CERT_PATH,
     DONATION_LINK,
@@ -50,12 +50,12 @@ from SaitamaRobot import (
 
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
-from SaitamaRobot.modules import ALL_MODULES
-from SaitamaRobot.modules.helper_funcs.chat_status import is_user_admin
-from SaitamaRobot.modules.helper_funcs.misc import paginate_modules
-from SaitamaRobot.modules.helper_funcs.alternate import typing_action
-from SaitamaRobot.modules.helper_funcs.admin_rights import user_can_ban
-from SaitamaRobot.modules.helper_funcs.readable_time import get_readable_time
+from AsunaRobot.modules import ALL_MODULES
+from AsunaRobot.modules.helper_funcs.chat_status import is_user_admin
+from AsunaRobot.modules.helper_funcs.misc import paginate_modules
+from AsunaRobot.modules.helper_funcs.alternate import typing_action
+from AsunaRobot.modules.helper_funcs.admin_rights import user_can_ban
+from AsunaRobot.modules.helper_funcs.readable_time import get_readable_time
 
 
 PM_START_TEXT = """
@@ -107,7 +107,7 @@ USER_SETTINGS = {}
 GDPR = []
 
 for module_name in ALL_MODULES:
-    imported_module = importlib.import_module("SaitamaRobot.modules." + module_name)
+    imported_module = importlib.import_module("AsunaRobot.modules." + module_name)
     if not hasattr(imported_module, "__mod_name__"):
         imported_module.__mod_name__ = imported_module.__name__
 
@@ -155,7 +155,7 @@ def send_help(chat_id, text, keyboard=None):
     )
 
 
-@run_async
+
 def test(update, context):
     try:
         print(update)
@@ -168,7 +168,7 @@ def test(update, context):
     print(update.effective_message)
 
 
-@run_async
+
 @typing_action
 def start(update: Update, context: CallbackContext):
     args = context.args
@@ -244,8 +244,8 @@ def error_handler(update, context):
     # Finally, send the message
     context.bot.send_message(chat_id=OWNER_ID, text=message, parse_mode=ParseMode.HTML)
 
-@run_async
-def SaitamaRobot_about_callback(update, context):
+
+def AsunaRobot_about_callback(update, context):
     query = update.callback_query
     if query.data == "aboutmanu_":
         query.message.edit_text(
@@ -365,7 +365,7 @@ def SaitamaRobot_about_callback(update, context):
                   ]])
         )
 
-@run_async
+
 def help_button(update, context):
     query = update.callback_query
     mod_match = re.match(r"help_module\((.+?)\)", query.data)
@@ -433,7 +433,7 @@ def help_button(update, context):
             LOGGER.exception("Exception in help buttons. %s", str(query.data))
 
 
-@run_async
+
 @typing_action
 def get_help(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
@@ -539,7 +539,7 @@ def send_settings(chat_id, user_id, user=False):
                 parse_mode=ParseMode.MARKDOWN)
 
 
-@run_async
+
 def settings_button(update: Update, context: CallbackContext):
     query = update.callback_query
     user = update.effective_user
@@ -612,7 +612,7 @@ def settings_button(update: Update, context: CallbackContext):
                              str(query.data))
 
 
-@run_async
+
 def get_settings(update: Update, context: CallbackContext):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -702,21 +702,21 @@ def main():
         except BadRequest as e:
             LOGGER.warning(e.message)
             
-    # test_handler = CommandHandler("test", test)
-    start_handler = CommandHandler("start", start, pass_args=True)
+    # test_handler = CommandHandler("test", test, run_async=True)
+    start_handler = CommandHandler("start", start, pass_args=True, run_async=True)
 
     help_handler = CommandHandler("help", get_help)
-    help_callback_handler = CallbackQueryHandler(help_button, pattern=r"help_")
+    help_callback_handler = CallbackQueryHandler(help_button, pattern=r"help_", run_async=True)
     
-    gethelp_callback_handler = CallbackQueryHandler(gethelp, pattern=r"gethelp_")
+    gethelp_callback_handler = CallbackQueryHandler(gethelp, pattern=r"gethelp_", run_async=True)
     
-    settings_handler = CommandHandler("settings", get_settings)
-    settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_")
+    settings_handler = CommandHandler("settings", get_settings, run_async=True)
+    settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_" , run_async=True)
     
-    about_callback_handler = CallbackQueryHandler(SaitamaRobot_about_callback, pattern=r"aboutmanu_")
+    about_callback_handler = CallbackQueryHandler(SaitamaRobot_about_callback, pattern=r"aboutmanu_", run_async=True)
     
-    migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats)
-    is_chat_allowed_handler = MessageHandler(Filters.group, is_chat_allowed)
+    migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats , run_async=True)
+    is_chat_allowed_handler = MessageHandler(Filters.group, is_chat_allowed, run_async=True)
 
     # dispatcher.add_handler(test_handler)
     dispatcher.add_handler(start_handler) 
